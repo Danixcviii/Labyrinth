@@ -7,7 +7,26 @@ class Cell{
     status=ALIVE;
  };
  
+ public FloatList copyDNA(){
+   FloatList newDNA=new FloatList();
+    for(float gen:DNA){
+     newDNA.append(mutate(gen));
+    };
+ };
  
+ public float mutate(final float gen){
+    Float mutateGen=gen;
+   int probability=random(0,1);
+    if(probability<=mutationProbability){
+      mutateGen=random(0,2*PI);
+    };
+     return mutateGen;
+ };
+ 
+ public float readDNA(final int locus){
+  Float gen=DNA.get(locus);
+   return gen;
+ };
  
  public setUpDNA(final int chromosomeSize){
   DNA=new FloatList();
@@ -17,9 +36,9 @@ class Cell{
   };
  };
  
- public void move(final int currentGen){
+ public void move(final int locus){
   if(status==ALIVE){
-    float angle=DNA.get(currentGen);
+    float angle=readDNA(locus);
     float V_x=speed*cos(angle); //Velocity x
     float V_Y=speed*sin(angle); //Velocity y
     position.add(new PVector(V_x,V_y));
@@ -45,7 +64,10 @@ class Cell{
  private color color;
  private float speed;
  private Status status;
+ private float mutationProbability; //have to has values between 0 and 1.
  
+ 
+ public static final float DEF_MUTATION_PROBABILITY;
  public static final color LIVE_COLOR=#FFFFFF;
  public static final color DEATH_COLOR=0;
  public static final float DEF_SIZE=5;
