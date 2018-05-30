@@ -1,9 +1,15 @@
 class Cell{
  
+ Cell(final PVector position,final int lifeTime){
+   this.position=position;
+   this.setUpDNA(lifeTime);
+    speed=DEF_SPEED;
+    status=ALIVE;
+ };
  
  
  
- public setUpDNA(final int chainLength){
+ public setUpDNA(final int chromosomeSize){
   DNA=new FloatList();
   //creacion del cromosoma y genes
   for(int locus=0;locus<chainLength;locus++){
@@ -11,7 +17,14 @@ class Cell{
   };
  };
  
- 
+ public void move(final int currentGen){
+  if(status==ALIVE){
+    float angle=DNA.get(currentGen);
+    float V_x=speed*cos(angle); //Velocity x
+    float V_Y=speed*sin(angle); //Velocity y
+    position.add(new PVector(V_x,V_y));
+  };
+ };
  
  public void display(){
   pushStyle();
@@ -20,7 +33,6 @@ class Cell{
    };
    fill(color);
    ellipse(position.x,position.y,size,size);
-   
   popStyle();
  };
  
@@ -32,11 +44,12 @@ class Cell{
  private float size;
  private color color;
  private float speed;
- private float angle;
  private Status status;
  
- public static final LIVE_COLOR=#FFFFFF;
- public static final DEATH_COLOR=0;
+ public static final color LIVE_COLOR=#FFFFFF;
+ public static final color DEATH_COLOR=0;
+ public static final float DEF_SIZE=5;
+ public static final float DEF_SPEED;
 };
 //TODO: ask about, how is the use of State and Status
 enum Status{
