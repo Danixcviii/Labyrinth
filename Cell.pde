@@ -5,7 +5,9 @@ class Cell{
    this.setUpDNA(lifeTime);
     speed=DEF_SPEED;
     status=ALIVE;
+    mutationProbability=DEF_MUTATION_PROBABILITY;
  };
+ 
  
  public FloatList copyDNA(){
    FloatList newDNA=new FloatList();
@@ -67,11 +69,11 @@ class Cell{
  private float mutationProbability; //have to has values between 0 and 1.
  
  
- public static final float DEF_MUTATION_PROBABILITY;
+ public static final float DEF_MUTATION_PROBABILITY=0.1;
  public static final color LIVE_COLOR=#FFFFFF;
  public static final color DEATH_COLOR=0;
  public static final float DEF_SIZE=5;
- public static final float DEF_SPEED;
+ public static final float DEF_SPEED=2;
 };
 //TODO: ask about, how is the use of State and Status
 enum Status{
