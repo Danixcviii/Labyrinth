@@ -4,7 +4,7 @@ class Cell{
    this.position=position;
    this.setUpDNA(lifeTime);
     speed=DEF_SPEED;
-    status=ALIVE;
+    status=Status.ALIVE;
     mutationProbability=DEF_MUTATION_PROBABILITY;
  };
  
@@ -14,11 +14,12 @@ class Cell{
     for(float gen:DNA){
      newDNA.append(mutate(gen));
     };
+     return newDNA;
  };
  
  public float mutate(final float gen){
     Float mutateGen=gen;
-   int probability=random(0,1);
+   float probability=random(0,1);
     if(probability<=mutationProbability){
       mutateGen=random(0,2*PI);
     };
@@ -30,26 +31,26 @@ class Cell{
    return gen;
  };
  
- public setUpDNA(final int chromosomeSize){
+ public void setUpDNA(final int chromosomeSize){
   DNA=new FloatList();
   //creacion del cromosoma y genes
-  for(int locus=0;locus<chainLength;locus++){
+  for(int locus=0;locus<chromosomeSize;locus++){
    DNA.append(random(0,2*PI));
   };
  };
  
  public void move(final int locus){
-  if(status==ALIVE){
+  if(status==Status.ALIVE){
     float angle=readDNA(locus);
     float V_x=speed*cos(angle); //Velocity x
-    float V_Y=speed*sin(angle); //Velocity y
+    float V_y=speed*sin(angle); //Velocity y
     position.add(new PVector(V_x,V_y));
   };
  };
  
  public void display(){
   pushStyle();
-   if(status==DEAD){
+   if(status==Status.DEAD){
      color=DEATH_COLOR;
    };
    fill(color);
